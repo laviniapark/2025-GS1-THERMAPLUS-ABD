@@ -1,0 +1,31 @@
+@model Therma_Plus_DotNet.DTOs.RegiaoDTO
+
+@{
+    ViewData["Title"] = "Adicionar Região";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label asp-for="Estado">Estado</label>
+        <select asp-for="Estado" class="form-control" asp-items="@(new SelectList(ViewBag.Estados, "Value", "Text"))">
+            <option value="">Selecione o Estado</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Cidade" class="form-label">Cidade</label>
+        <input asp-for="Cidade" class="form-control" required/>
+        <span asp-validation-for="Cidade" class="text-danger"></span>
+    </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a class="btn btn-secondary" href="/usuario">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

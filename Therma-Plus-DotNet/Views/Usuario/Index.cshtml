@@ -1,0 +1,29 @@
+@model Therma_Plus_DotNet.DTOs.UsuarioDTO
+
+@{
+    ViewData["Title"] = "Informações do Usuário";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<a class="btn btn-primary pt-2 pb-2" href="/regiao/Create">Criar usuário</a>
+
+<div class="">
+    <span>Nome: </span>@Model.Nome
+</div>
+<div class="pt-1">
+    <span>Idade: </span>@Model.Idade
+</div>
+<div class="pt-1">
+    <span>Doença Crônica: </span>@Model.Doenca
+</div>
+<div class="pt-1">
+    <span>Estado: </span>@Model.Estado
+</div>
+<div class="pt-1">
+    <span>Cidade: </span>@Model.Cidade
+</div>
+
+<a class="btn btn-warning" href="/usuario/Edit/@Model.UsuarioId">Editar Informações</a>
+<a class="btn btn-warning" href="/regiao/Edit/@Model.RegiaoId">Editar Localização</a>
+<a class="btn btn-danger" href="/usuario/Delete/@Model.UsuarioId">Excluir</a>
