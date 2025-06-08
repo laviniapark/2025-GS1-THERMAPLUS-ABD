@@ -18,7 +18,7 @@ public class UsuarioController : Controller
     public async Task<IActionResult> Index()
     {
         // id mockado para fins de testes
-        int id = 2;
+        int id = 3;
         var usuario = await _usuarioService.GetInfoUsuarioRegiao(id);
 
         if (usuario == null)
