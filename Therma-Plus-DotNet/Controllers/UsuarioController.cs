@@ -93,12 +93,19 @@ public class UsuarioController : Controller
         return View(usuario);
     }
 
-    [HttpPost, ActionName("DeleteConfirmed")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    [HttpPost]
+    public async Task<IActionResult> DeleteConfirmed(int UsuarioId)
     {
-        Console.WriteLine("entrei no controller");
-        await _usuarioService.DeleteUsuarioAsync(id);
-        return RedirectToAction("Index");
+        Console.WriteLine($"Recebido UsuarioId: {UsuarioId}");
+        try
+        {
+            await _usuarioService.DeleteUsuarioAsync(UsuarioId);
+            return RedirectToAction("Index");
+        }
+        catch(Exception ex)
+        {
+            return Content("Erro ao excluir: " + ex.Message);
+        }
     }
     
     

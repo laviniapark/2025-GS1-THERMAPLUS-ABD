@@ -65,9 +65,9 @@ public class UsuarioService
         await _usuarioRepository.UpdateUsuarioAsync(usuario);
     }
 
-    public async Task DeleteUsuarioAsync(int id)
+    public async Task DeleteUsuarioAsync(int UsuarioId)
     {
         Console.WriteLine("entrei no service");
-        await _usuarioRepository.DeleteUsuarioAsync(id);
+        await _usuarioRepository.DeleteUsuarioAsync(UsuarioId);
     }
 }

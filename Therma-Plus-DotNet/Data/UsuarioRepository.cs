@@ -50,12 +50,14 @@ public class UsuarioRepository : IUsuarioRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteUsuarioAsync(int id)
+    public async Task DeleteUsuarioAsync(int UsuarioId)
     {
         Console.WriteLine("entrei no repository");
-        var usuario = await _context.Usuarios.FindAsync(id);
+        var usuario = await _context.Usuarios.FindAsync(UsuarioId);
         if (usuario != null)
         {
+            _context.Entry(usuario.RegiaoId).State = EntityState.Detached;
+
             _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
         }
