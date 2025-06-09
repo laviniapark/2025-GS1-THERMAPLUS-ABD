@@ -86,7 +86,7 @@ ou clique no play na parte superior da IDE
 
 ### 4. Testando o programa
 
-Para acessar o Swagger, basta digitar a seguinte URL: http://localhost:5182/swagger/index.html
+Assim que iniciarmos o programa, o Swagger irá abrir.
 
 ![Swagger UI](/img/tela-swagger.png)
 
