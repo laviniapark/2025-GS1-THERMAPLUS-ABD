@@ -82,15 +82,15 @@ dotnet run
 
 ou clique no play na parte superior da IDE
 
-4. Caso não abra uma aba web automaticamente, acesse o link: http://localhost:5192
+4. Caso não abra uma aba web automaticamente, acesse o link: http://localhost:5182
 
 ### 4. Testando o programa
 
-Assim que o programa for iniciado, o Swagger irá ser aberto de início.
+Para acessar o Swagger, basta digitar a seguinte URL: http://localhost:5182/swagger/index.html
 
 ![Swagger UI](/img/tela-swagger.png)
 
-Para avançar para a página web inicial, basta mudar a URL para: http://localhost:5192/Home
+Para avançar para a página web inicial, basta mudar a URL para: http://localhost:5182/Home
 
 ---
 **Agora, podemos começar a testar as funcionalidades!**
