@@ -5,7 +5,7 @@
 namespace Therma_Plus_DotNet.Migrations
 {
     /// <inheritdoc />
-    public partial class Substituir : Migration
+    public partial class InitialSql : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,10 +14,10 @@ namespace Therma_Plus_DotNet.Migrations
                 name: "TBL_REGIOES",
                 columns: table => new
                 {
-                    id_regiao = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    estado = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    cidade = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    id_regiao = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    estado = table.Column<int>(type: "int", nullable: false),
+                    cidade = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,12 +28,12 @@ namespace Therma_Plus_DotNet.Migrations
                 name: "TBL_USUARIOS",
                 columns: table => new
                 {
-                    id_usuario = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    id_regiao = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    nome = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    idade = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    doenca_cronica = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
+                    id_usuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    id_regiao = table.Column<int>(type: "int", nullable: false),
+                    nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    idade = table.Column<int>(type: "int", nullable: false),
+                    doenca_cronica = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

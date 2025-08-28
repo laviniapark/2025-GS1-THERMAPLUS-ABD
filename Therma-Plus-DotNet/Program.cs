@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
 builder.Services.AddAutoMapper(typeof(Program));
@@ -22,6 +22,8 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<UsuarioService>();
 
 var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
