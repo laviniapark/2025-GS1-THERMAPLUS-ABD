@@ -20,8 +20,10 @@ public class UsuarioService
 
     public async Task<IEnumerable<UsuarioDTO>> GetAllUsuariosAsync()
     {
-        var usuarios = await _usuarioRepository.GetAllAsync();
+        var usuarios = await _usuarioRepository.GetAllUsuariosComRegiaoAsync();
+        
         return _mapper.Map<IEnumerable<UsuarioDTO>>(usuarios);
+        
     }
 
     public async Task<UsuarioDTO> GetUsuarioByIdAsync(int id)
@@ -29,27 +31,6 @@ public class UsuarioService
         var usuario = await _usuarioRepository.GetByIdAsync(id);
 
         return _mapper.Map<UsuarioDTO>(usuario);
-    }
-
-    public async Task<UsuarioDTO> GetInfoUsuarioRegiao(int id)
-    {
-        var usuario = await _usuarioRepository.GetByIdAsync(id);
-        
-        if (usuario == null) return null;
-
-        usuario.Regiao = await _regiaoRepository.GetByIdAsync(usuario.RegiaoId);
-
-        var dto = new UsuarioDTO
-        {
-            UsuarioId = usuario.UsuarioId,
-            RegiaoId = usuario.RegiaoId,
-            Nome = usuario.Nome,
-            Idade = usuario.Idade,
-            Doenca = usuario.Doenca,
-            Estado = usuario.Regiao.Estado.ToString(),
-            Cidade = usuario.Regiao.Cidade
-        };
-        return dto;
     }
 
     public async Task AddUsuarioAsync(UsuarioDTO usuarioDto)

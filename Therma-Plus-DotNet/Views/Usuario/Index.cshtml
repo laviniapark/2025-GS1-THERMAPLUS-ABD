@@ -1,4 +1,6 @@
-@model Therma_Plus_DotNet.DTOs.UsuarioDTO
+@model IEnumerable<Therma_Plus_DotNet.DTOs.UsuarioDTO>
+@using System.Linq
+
 
 @{
     ViewData["Title"] = "Informações do Usuário";
@@ -8,22 +10,35 @@
 
 <a class="btn btn-primary pt-2 pb-2" href="/regiao/Create">Criar usuário</a>
 
-<div class="">
-    <span>Nome: </span>@Model.Nome
-</div>
-<div class="pt-1">
-    <span>Idade: </span>@Model.Idade
-</div>
-<div class="pt-1">
-    <span>Doença Crônica: </span>@Model.Doenca
-</div>
-<div class="pt-1">
-    <span>Estado: </span>@Model.Estado
-</div>
-<div class="pt-1">
-    <span>Cidade: </span>@Model.Cidade
-</div>
-
-<a class="btn btn-warning" href="/usuario/Edit/@Model.UsuarioId">Editar Informações</a>
-<a class="btn btn-warning" href="/regiao/Edit/@Model.RegiaoId">Editar Localização</a>
-<a class="btn btn-danger" href="/usuario/Delete/@Model.UsuarioId">Excluir</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th><th>Nome</th><th>Idade</th><th>Doença</th><th>Estado</th><th>Cidade</th><th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.UsuarioId</td>
+                <td>@u.Nome</td>
+                <td>@u.Idade</td>
+                <td>@u.Doenca</td>
+                <td>@u.Estado</td>
+                <td>@u.Cidade</td>
+                <td>
+                    <a class="btn btn-warning" href="/usuario/Edit/@u.UsuarioId">Editar Informações</a>
+                    <a class="btn btn-warning" href="/regiao/Edit/@u.RegiaoId">Editar Localização</a>
+                    <a class="btn btn-danger" href="/usuario/Delete/@u.UsuarioId">Excluir</a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr><td colspan="7">Nenhum usuário cadastrado.</td></tr>
+    }
+    </tbody>
+</table>

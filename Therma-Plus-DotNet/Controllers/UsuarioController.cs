@@ -17,9 +17,7 @@ public class UsuarioController : Controller
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
-        // id mockado para fins de testes
-        int id = 3;
-        var usuario = await _usuarioService.GetInfoUsuarioRegiao(id);
+        var usuario = await _usuarioService.GetAllUsuariosAsync();
 
         if (usuario == null)
             return RedirectToAction("Create", "regiao");
@@ -85,7 +83,7 @@ public class UsuarioController : Controller
     [HttpGet("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var usuario = await _usuarioService.GetInfoUsuarioRegiao(id);
+        var usuario = await _usuarioService.GetUsuarioByIdAsync(id);
         if (usuario == null)
         {
             return NotFound();
@@ -94,12 +92,12 @@ public class UsuarioController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> DeleteConfirmed(int UsuarioId)
+    public async Task<IActionResult> DeleteConfirmed(int usuarioId)
     {
-        Console.WriteLine($"Recebido UsuarioId: {UsuarioId}");
+        Console.WriteLine($"Recebido UsuarioId: {usuarioId}");
         try
         {
-            await _usuarioService.DeleteUsuarioAsync(UsuarioId);
+            await _usuarioService.DeleteUsuarioAsync(usuarioId);
             return RedirectToAction("Index");
         }
         catch(Exception ex)

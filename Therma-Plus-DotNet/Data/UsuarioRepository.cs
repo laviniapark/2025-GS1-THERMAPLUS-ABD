@@ -27,10 +27,42 @@ public class UsuarioRepository : IUsuarioRepository
             })
             .ToListAsync();
     }
-
-    public async Task<Usuario> GetByIdAsync(int id)
+    
+    public async Task<IEnumerable<UsuarioDTO>> GetAllUsuariosComRegiaoAsync()
     {
-        return await _context.Usuarios.FindAsync(id);
+        return await _context.Usuarios
+            .AsNoTracking()
+            .Include(u => u.Regiao) // se existir navegação
+            .Select(u => new UsuarioDTO
+            {
+                UsuarioId = u.UsuarioId,
+                RegiaoId  = u.RegiaoId,
+                Nome      = u.Nome,
+                Idade     = u.Idade,
+                Doenca    = u.Doenca,
+                Estado    = u.Regiao != null ? u.Regiao.Estado.ToString() /*.ToString() se enum */ : null,
+                Cidade    = u.Regiao != null ? u.Regiao.Cidade : null
+            })
+            .ToListAsync();
+    }
+
+    public async Task<UsuarioDTO> GetByIdAsync(int id)
+    {
+        return await _context.Usuarios
+            .AsNoTracking()
+            .Include(u => u.Regiao) // remova se não existir navegação
+            .Where(u => u.UsuarioId == id)
+            .Select(u => new UsuarioDTO
+            {
+                UsuarioId = u.UsuarioId,
+                RegiaoId  = u.RegiaoId,
+                Nome      = u.Nome,
+                Idade     = u.Idade,
+                Doenca    = u.Doenca,
+                Estado    = u.Regiao != null ? u.Regiao.Estado.ToString() /* .ToString() se enum */ : null,
+                Cidade    = u.Regiao != null ? u.Regiao.Cidade : null
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<Usuario> GetInfoDisplay(int id)
@@ -50,13 +82,12 @@ public class UsuarioRepository : IUsuarioRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteUsuarioAsync(int UsuarioId)
+    public async Task DeleteUsuarioAsync(int usuarioId)
     {
         Console.WriteLine("entrei no repository");
-        var usuario = await _context.Usuarios.FindAsync(UsuarioId);
+        var usuario = await _context.Usuarios.FindAsync(usuarioId);
         if (usuario != null)
         {
-            _context.Entry(usuario.RegiaoId).State = EntityState.Detached;
 
             _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
