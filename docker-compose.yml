@@ -4,7 +4,9 @@ services:
     container_name: thermaplus_api
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
       ASPNETCORE_ENVIRONMENT: "Production"
-      ConnectionStrings__Default: ${SQL_CONNECTION}
+      ConnectionStrings__DefaultConnection: ${SQL_CONNECTION}
     restart: unless-stopped
